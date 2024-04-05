@@ -7,8 +7,11 @@ This project is designed to implement factor-based investment strategies using P
 ## Features
 
 Data Collection: Scripts to fetch historical stock prices, company fundamentals, and macroeconomic indicators from various sources.
+
 Factor Research: Implementation of common financial factors and the ability to design custom factors.
+
 Portfolio Construction: Tools to construct and optimize portfolios based on factor scores and user-defined constraints
+
 Rebalancing: Includes a time-based rebalancing script that automatically adjusts portfolio allocations at predetermined intervals to maintain desired factor weightings.
 
 ## Contact
