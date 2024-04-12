@@ -8,7 +8,7 @@ base_path = Path(__file__).parent
 data_file = base_path /  'exposure_trade.csv'
 
 def test_data_loader():
-    loader = DataLoader(data_file)
+    loader = DataLoader('csv', data_file)
     data = loader.load_data()
     assert not data.empty
 

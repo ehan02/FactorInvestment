@@ -2,17 +2,19 @@
 
 ## Project Overview
 
-This project is designed to implement factor-based investment strategies using Python. It utilizes various financial factors such as value, momentum, quality, and volatility to select stocks and construct portfolios that aim to outperform the market. By analyzing historical data, the project identifies patterns and relationships between different factors and stock returns to make informed investment decisions.
+This project is designed to implement factor-based investment strategies using Python.  It utilizes object-oriented programming principles to provide a modular, reusable, and scalable solution for loading, cleaning, and analyzing financial data. The package includes specific modules for loading data from various sources, cleaning and processing this data, and constructing investment portfolios based on factor scores.
 
-## Features
+## Components
 
-Data Collection: Scripts to fetch historical stock prices, company fundamentals, and macroeconomic indicators from various sources.
+Data Loader: A Singleton-based data loader module designed to manage and validate data from diverse sources such as CSV files and APIs.
 
-Factor Research: Implementation of common financial factors and the ability to design custom factors.
+Data Cleaner: Cleans and preprocesses the financial data
 
-Portfolio Construction: Tools to construct and optimize portfolios based on factor scores and user-defined constraints
+Factor Calculator: Implementation of common financial factors and the ability to design custom factors.
 
-Rebalancing: Includes a time-based rebalancing script that automatically adjusts portfolio allocations at predetermined intervals to maintain desired factor weightings.
+Portfolio Constructor: Tools to construct and optimize portfolios based on factor scores and user-defined constraints
+
+Portfolio Balancer: Includes a time-based rebalancing script that automatically adjusts portfolio allocations at predetermined intervals to maintain desired factor weightings.
 
 ## Contact
 

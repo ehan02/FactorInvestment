@@ -7,7 +7,7 @@ import pandas as pd
 
 def run_analysis(file_path):
     # Load Data
-    loader = DataLoader(file_path)
+    loader = DataLoader('csv', file_path)
     data = loader.load_data()
 
     # Clean Data
