@@ -1,9 +1,3 @@
-import yfinance as yf
-import pandas as pd
-import numpy as np
-import statsmodels.api as sm
-import requests
-
 class DataCleaner:
 
     def __init__(self, dataframe):

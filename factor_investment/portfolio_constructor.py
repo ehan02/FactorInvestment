@@ -1,5 +1,3 @@
-import pandas as pd
-import numpy as np
 class PortfolioConstructor:
     def __init__(self, assets):
         self.assets = assets
