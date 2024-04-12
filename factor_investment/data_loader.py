@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import requests
-from pathlib import WindowsPath
+from pathlib import WindowsPath,PosixPath
 
 class DataLoader:
 
@@ -12,7 +12,7 @@ class DataLoader:
         """
         Load data from the specified source, which could be a file path or an API URL.
         """
-        if isinstance(self.source, WindowsPath):
+        if isinstance(self.source, WindowsPath) or isinstance(self.source, PosixPath) :
             return self._load_from_csv()
         elif self.source.endswith('.csv'):
             return self._load_from_csv()
