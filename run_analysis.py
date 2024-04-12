@@ -1,37 +1,36 @@
+from factor_investment.data_loader import DataLoader
+from factor_investment.data_cleaner import DataCleaner
+from factor_investment.factor_calculator import FactorCalculator
+from factor_investment.portfolio_constructor import PortfolioConstructor
+from factor_investment.portfolio_balancer import PortfolioBalancer
 import pandas as pd
 
-# Example portfolio holdings and current prices
-# For simplicity, assume we only have two assets: stocks and bonds
-portfolio = {
-    'Asset': ['Stocks', 'Bonds'],
-    'Quantity': [100, 200],  # Quantity of each asset
-    'CurrentPrice': [150, 110],  # Current price of each asset
-    'TargetAllocation': [0.6, 0.4],  # Target allocation for each asset
-}
+def run_analysis(file_path):
+    # Load Data
+    loader = DataLoader(file_path)
+    data = loader.load_data()
 
-# Convert to DataFrame
-portfolio_df = pd.DataFrame(portfolio)
+    # Clean Data
+    cleaner = DataCleaner(data)
+    clean_data = cleaner.clean_data()
 
-# Calculate current value and total portfolio value
-portfolio_df['CurrentValue'] = portfolio_df['Quantity'] * portfolio_df['CurrentPrice']
-total_portfolio_value = portfolio_df['CurrentValue'].sum()
+    # Calculate Factors
+    calculator = FactorCalculator(clean_data)
+    factor_data = calculator.calculate_momentum()
+    factor_data = calculator.calculate_volatility()
 
-# Calculate current allocation percentage for each asset
-portfolio_df['CurrentAllocation'] = portfolio_df['CurrentValue'] / total_portfolio_value
+    # Construct Portfolio
+    # constructor = PortfolioConstructor(factor_data)
+    # portfolio = constructor.construct_portfolio()
 
-# Determine the amount to buy/sell to reach target allocation
-portfolio_df['TargetValue'] = total_portfolio_value * portfolio_df['TargetAllocation']
-portfolio_df['Adjustment'] = portfolio_df['TargetValue'] - portfolio_df['CurrentValue']
+    # # Balance Portfolio
+    # balancer = PortfolioBalancer(portfolio)
+    # balanced_portfolio = balancer.balance_portfolio()
+    weight = 1 / len(factor_data)
+    balanced_portfolio = {factor: weight for factor in factor_data}
+    return balanced_portfolio
 
-# Calculate the quantity to buy/sell for each asset
-portfolio_df['AdjustmentQuantity'] = portfolio_df['Adjustment'] / portfolio_df['CurrentPrice']
-
-# Display the adjustments needed
-print("Portfolio Rebalancing Adjustments:")
-print(portfolio_df[['Asset', 'AdjustmentQuantity']])
-
-# Optionally, round AdjustmentQuantity if dealing with whole units like stocks
-portfolio_df['AdjustmentQuantity'] = portfolio_df['AdjustmentQuantity'].round()
-
-print("\nRounded Adjustments (for whole units):")
-print(portfolio_df[['Asset', 'AdjustmentQuantity']])
+if __name__ == "__main__":
+    # Example: replace 'path/to/data.csv' with the path to your data file
+    result = run_analysis('tests/exposure_trade.csv')
+    print(result)
