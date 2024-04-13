@@ -8,7 +8,7 @@ This project is designed to implement factor-based investment strategies using P
 
 Data Loader: A Singleton-based data loader module designed to manage and validate data from diverse sources such as CSV files and APIs.
 
-Data Cleaner: Cleans and preprocesses the financial data
+Data Cleaner: Provides a suite of flexible strategies to preprocess financial datasets by handling missing data and winsorizing data for robust factor analysis in systematic investment.
 
 Factor Calculator: Implementation of common financial factors and the ability to design custom factors.
 

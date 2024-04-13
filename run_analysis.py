@@ -1,5 +1,5 @@
 from factor_investment.data_loader import DataLoader
-from factor_investment.data_cleaner import DataCleaner
+from factor_investment.data_cleaner import FillMissingDataStrategy, WinsorizationStrategy, DataCleaner
 from factor_investment.factor_calculator import FactorCalculator
 from factor_investment.portfolio_constructor import PortfolioConstructor
 from factor_investment.portfolio_balancer import PortfolioBalancer
@@ -11,9 +11,11 @@ def run_analysis(file_path):
     data = loader.load_data()
 
     # Clean Data
-    cleaner = DataCleaner(data)
-    clean_data = cleaner.clean_data()
 
+    strategies = [FillMissingDataStrategy(), WinsorizationStrategy(0.05, 0.95)]
+    cleaner = DataCleaner(strategies)
+    clean_data = cleaner.clean_data(data.copy())
+    
     # Calculate Factors
     calculator = FactorCalculator(clean_data)
     factor_data = calculator.calculate_momentum()
