@@ -3,7 +3,7 @@
 # Import key classes into the package namespace for easier access
 from .data_loader import DataLoader
 from .data_cleaner import DataCleaner
-from .factor_calculator import FactorCalculator
+from .factor_calculator import PEFactorCalculator, PBFactorCalculator, EVToEBITDAFactorCalculator
 #from .visualizer import Visualizer
 
 # Optionally, define a __version__ for your package

@@ -10,7 +10,7 @@ Data Loader: A Singleton-based data loader module designed to manage and validat
 
 Data Cleaner: Provides a suite of flexible strategies to preprocess financial datasets by handling missing data and winsorizing data for robust factor analysis in systematic investment.
 
-Factor Calculator: Implementation of common financial factors and the ability to design custom factors.
+Factor Calculator: A framework for calculating and scoring financial ratios such as PE, PB, and EV/EBITDA, utilizing abstract base classes to allow easy extension and customization for different financial metrics.
 
 Portfolio Constructor: Tools to construct and optimize portfolios based on factor scores and user-defined constraints
 

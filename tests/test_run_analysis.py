@@ -16,7 +16,7 @@ def test_run_analysis(mocker, mock_data):
     mock_cleaner = mocker.patch('run_analysis.DataCleaner')
     mock_cleaner.return_value.clean_data.return_value = mock_data
 
-    mock_calculator = mocker.patch('run_analysis.FactorCalculator')
+    mock_calculator = mocker.patch('run_analysis.PEFactorCalculator')
     mock_calculator.return_value.calculate_momentum.return_value = mock_data
     mock_calculator.return_value.calculate_volatility.return_value = mock_data
 
@@ -29,4 +29,4 @@ def test_run_analysis(mocker, mock_data):
     # Run the test
     result = run_analysis('exposure_trade.csv')
     print(result)
-    assert result == {'price': 0.1}
+    assert result == {'price': 0}

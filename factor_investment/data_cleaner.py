@@ -10,6 +10,20 @@ class CleaningStrategy:
     def apply(self, data):
         raise NotImplementedError("Cleaning strategy must implement the apply method.")
 
+class ConvertToFloatStrategy(CleaningStrategy):
+    def apply(self, data):
+        """ Converts string values to floats where possible. """
+        for row in range(len(data)):
+            for col in range(data.shape[1]):
+                try:
+                    # Attempt to convert each element to float if it's a string that represents a number
+                    if isinstance( data.iloc[row, col], str):
+                         data.iloc[row, col] = float( data.iloc[row, col])
+                except ValueError:
+                    # If conversion fails, keep the original value
+                    continue
+        return data
+    
 class FillMissingDataStrategy(CleaningStrategy):
     """Strategy to fill missing data with the median of each column."""
     def apply(self, data):
