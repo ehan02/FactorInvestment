@@ -12,7 +12,9 @@ Data Cleaner: Provides a suite of flexible strategies to preprocess financial da
 
 Factor Calculator: A framework for calculating and scoring financial ratios such as PE, PB, and EV/EBITDA, utilizing abstract base classes to allow easy extension and customization for different financial metrics.
 
-Portfolio Constructor: Tools to construct and optimize portfolios based on factor scores and user-defined constraints
+Investment Strategy: A list of various investment strategies that leverage financial factors to guide portfolio allocation decisions.
+
+Portfolio Constructor: Tools to construct and optimize portfolios based on investment strategy to user-defined constraints
 
 Portfolio Balancer: Includes a time-based rebalancing script that automatically adjusts portfolio allocations at predetermined intervals to maintain desired factor weightings.
 
