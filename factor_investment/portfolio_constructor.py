@@ -3,7 +3,7 @@ from scipy.optimize import minimize
 import json
 from factor_investment.investment_strategy import ValueStrategy, MomentumStrategy, ValueMomentumCombinedStrategy
 
-class PortfolioBuilder:
+class PortfolioConstructor:
     def __init__(self, strategies, config_path='config.json'):
         self.strategies = strategies
         self.load_constraints(config_path)
@@ -32,7 +32,7 @@ class PortfolioBuilder:
 # Example of setting up the PortfolioBuilder with strategies
 if __name__ == '__main__':
     strategies = [ValueStrategy(), MomentumStrategy(), ValueMomentumCombinedStrategy()]
-    builder = PortfolioBuilder(strategies)
+    builder = PortfolioConstructor(strategies)
     # Example usage assuming 'weights' and 'factors' are predefined
     # factors = {'MarketPrice': ..., 'EarningsPerShare': ..., 'EBITDA': ...}
     # weights = np.array([...])

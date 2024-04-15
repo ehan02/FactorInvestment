@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from pathlib import Path
-from factor_investment.portfolio_constructor import PortfolioBuilder
+from factor_investment.portfolio_constructor import PortfolioConstructor
 from factor_investment.investment_strategy import InvestmentStrategy
 
 base_path = Path(__file__).parent
@@ -31,14 +31,14 @@ def strategies():
 
 def test_load_constraints(strategies):
     # Test loading of constraints from a configuration file
-    builder = PortfolioBuilder(strategies, test_config)
+    builder = PortfolioConstructor(strategies, test_config)
     assert builder.constraints['min_weight'] == 0.01
     assert builder.constraints['max_weight'] == 0.25
     assert builder.constraints['total_investment'] == 1.0
 
 def test_portfolio_optimization(strategies, initial_weights, mock_factors):
     # Test the portfolio optimization logic
-    builder = PortfolioBuilder(strategies, test_config)
+    builder = PortfolioConstructor(strategies, test_config)
     optimized_weights = builder.build(initial_weights, mock_factors)
     assert len(optimized_weights) == 5
     assert np.isclose(np.sum(optimized_weights), 1.0)  # Ensure total investment constraint is met

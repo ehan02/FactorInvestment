@@ -16,7 +16,7 @@ Investment Strategy: A list of various investment strategies that leverage finan
 
 Portfolio Constructor: Tools to construct and optimize portfolios based on investment strategy to user-defined constraints
 
-Portfolio Balancer: Includes a time-based rebalancing script that automatically adjusts portfolio allocations at predetermined intervals to maintain desired factor weightings.
+Portfolio Balancer:  Dynamically adjusts investment allocations to maintain target portfolio weights, allowing for both daily and monthly rebalancing as specified by the user.
 
 ## Contact
 

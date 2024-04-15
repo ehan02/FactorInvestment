@@ -26,6 +26,7 @@
 #     mock_balancer = mocker.patch('run_analysis.PortfolioBalancer')
 #     mock_balancer.return_value.balance_portfolio.return_value = {'stock_a': 0.5, 'stock_b': 0.5}
 
+
 #     # Run the test
 #     result = run_analysis('exposure_trade.csv')
 #     print(result)

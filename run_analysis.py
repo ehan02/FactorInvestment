@@ -29,11 +29,20 @@ def run_analysis(file_path):
     # # Balance Portfolio
     # balancer = PortfolioBalancer(portfolio)
     # balanced_portfolio = balancer.balance_portfolio()
-    weight =  0
+    target_weights =  0
     if len(factor_data) != 0:
-        weight = 1 / len(factor_data)
-    balanced_portfolio = {factor: weight for factor in factor_data}
-    return balanced_portfolio
+        target_weights = 1 / len(factor_data)
+    # Example usage
+    current_positions = {'StockA': 100000, 'StockB': 150000}
+    target_weights = {'StockA': 0.5, 'StockB': 0.5}
+
+    # Create an instance for daily balancing
+    daily_balancer = PortfolioBalancer(frequency='daily')
+    daily_balancer.rebalance_portfolio(current_positions, target_weights)
+
+    # Create an instance for monthly balancing
+    monthly_balancer = PortfolioBalancer(frequency='monthly')
+    monthly_balancer.rebalance_portfolio(current_positions, target_weights)
 
 if __name__ == "__main__":
     # Example: replace 'path/to/data.csv' with the path to your data file
