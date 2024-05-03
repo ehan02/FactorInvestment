@@ -28,13 +28,3 @@ class PortfolioConstructor:
         portfolio_risk = np.std(weights)
         risk_penalty = portfolio_risk ** 2
         return -(total_return - risk_penalty)
-
-# Example of setting up the PortfolioBuilder with strategies
-if __name__ == '__main__':
-    strategies = [ValueStrategy(), MomentumStrategy(), ValueMomentumCombinedStrategy()]
-    builder = PortfolioConstructor(strategies) 
-    # Example usage assuming 'weights' and 'factors' are predefined
-    # factors = {'MarketPrice': ..., 'EarningsPerShare': ..., 'EBITDA': ...}
-    # weights = np.array([...])
-    # optimized_weights = builder.build(weights, factors)
-    # print("Optimized Portfolio Weights:", optimized_weights)
