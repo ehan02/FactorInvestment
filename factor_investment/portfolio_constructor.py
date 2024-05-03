@@ -1,7 +1,7 @@
 import numpy as np
 import json
 from scipy.optimize import minimize
-from investment_strategy import ValueStrategy, MomentumStrategy, ValueMomentumCombinedStrategy
+#from investment_strategy import ValueStrategy, MomentumStrategy, ValueMomentumCombinedStrategy
 
 class PortfolioConstructor:
     def __init__(self, strategies, config_path='config.json'):

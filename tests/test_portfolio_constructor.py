@@ -2,13 +2,13 @@ import pytest
 import numpy as np
 from pathlib import Path
 from factor_investment.portfolio_constructor import PortfolioConstructor
-from factor_investment.investment_strategy import InvestmentStrategy
+from factor_investment.investment_strategy import ValueStrategy
 
 base_path = Path(__file__).parent
 test_config = base_path /  'test_config.json'
 
 # Mock strategy classes for testing
-class MockStrategy(InvestmentStrategy):
+class MockStrategy(ValueStrategy):
     def apply_strategy(self, weights, factors):
         return np.sum(weights * factors['constant_factor'])  # Simplified strategy for testing
 

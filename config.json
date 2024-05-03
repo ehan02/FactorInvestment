@@ -1,7 +1,0 @@
-{
-    "constraints": {
-        "min_weight": 0.01,
-        "max_weight": 0.25,
-        "total_investment": 1.0
-    }
-}

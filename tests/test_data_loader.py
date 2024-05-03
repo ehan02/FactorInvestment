@@ -7,7 +7,7 @@ from factor_investment.data_loader import DataLoader
 base_path = Path(__file__).parent
 data_file = base_path /  'exposure_trade.csv'
 
-def test_data_loader():
+def test_data_loader_csv():
     loader = DataLoader('csv', data_file)
     data = loader.load_data()
     assert not data.empty
