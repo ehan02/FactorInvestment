@@ -1,81 +1,79 @@
+import json
 import pandas as pd
-import numpy as np
-import requests
 import logging
-from pathlib import WindowsPath,PosixPath
+import aiohttp
+import aiofiles
+import asyncio
+from pathlib import Path,WindowsPath, PosixPath
 from typing import Any, Dict
-
-# Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+from factor_investment.log_config import setup_logging
 
 class DataLoader:
-    _instance = None
+    def __init__(self, config_file=None):
+        setup_logging(config_file)  # Set up logging configuration
+        if config_file:
+            self.load_config(config_file)
+        self.cache = {}
 
-    def __new__(cls, data_source_type: str, source_path: str):
-        if cls._instance is None:
-            cls._instance = super(DataLoader, cls).__new__(cls)
-            cls._instance.data_source_type = data_source_type
-            cls._instance.source_path = source_path
-        return cls._instance
-
-    def load_data(self) -> Any:
-        """ Load data based on the data source type (CSV or API). """
-        if self.data_source_type == 'csv':
-            return self.load_from_csv(self.source_path)
-        elif self.data_source_type == 'api':
-            return self.load_from_api(self.source_path)
-        else:
-            logging.error("Unsupported data source type provided.")
-            raise ValueError("Unsupported data source type. Use 'csv' or 'api'.")
-
-    def load_data(self):
+    def load_config(self, config_file):
         """
-        Load data from the specified source, which could be a file path or an API URL.
+        Load configuration from a JSON file.
         """
-        if isinstance(self.source_path, WindowsPath) or isinstance(self.source_path, PosixPath) :
-            return self._load_from_csv()
-        elif self.source_path.endswith('.csv'):
-            return self._load_from_csv()
-        elif self.source_path.startswith(('http', 'https')):
-            return self._load_from_api()
+        with open(config_file, 'r') as file:
+            config = json.load(file)
+        self.api_key = config.get('api_key', '') 
+        self.base_url = config.get('base_url', '')  # Base URL for the API
+
+    async def load_data(self, data_source_type, source_path):
+        """
+        Asynchronously load data from the configured source.
+        """
+        cache_key = str(source_path)
+        if cache_key in self.cache:
+            logging.info("Data loaded from cache.")
+            return self.cache[cache_key]
+
+        if Path(source_path).suffix == '.csv':
+            data = await self._load_from_csv(source_path)
+        elif source_path.startswith(('http', 'https')):
+            data = await self._load_from_api(source_path)
         else:
             raise ValueError("Invalid source. Provide a valid CSV file path or API URL.")
 
-    def _load_from_csv(self):
+        self.cache[cache_key] = data
+        return data
+
+    async def _load_from_csv(self, source_path):
         """
-        Private method to load data from a CSV file.
+        Asynchronously load data from a CSV file.
         """
         try:
-            data = pd.read_csv(self.source_path)
-            print(f"Data loaded successfully from {self.source_path}")
-            return data
-        except FileNotFoundError:
-            print(f"Error: The file at {self.source_path} was not found.")
-            raise
-        except pd.errors.EmptyDataError:
-            print("Error: The file is empty.")
-            raise
+            async with aiofiles.open(source_path, mode='r') as file:
+                data = await file.read()
+            df = pd.read_csv(pd.compat.StringIO(data))
+            logging.info(f"Data loaded successfully from {source_path}")
+            return df
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logging.error(f"An error occurred while reading CSV: {e}")
             raise
 
-    def _load_from_api(self):
+    async def _load_from_api(self, source_path):
         """
-        Private method to load data from a financial API.
+        Asynchronously load data from an API.
         """
-        try:
-            response = requests.get(self.source_path)
-            response.raise_for_status()  # Raises an HTTPError for bad responses
-            data = pd.DataFrame(response.json())  # Adjust this depending on the structure of the API response
-            print(f"Data loaded successfully from {self.source_path}")
-            return data
-        except requests.exceptions.HTTPError as e:
-            print(f"HTTP Error: {e}")
-            raise
-        except requests.exceptions.RequestException as e:
-            print(f"Error retrieving data from API: {e}")
-            raise
-        except ValueError as e:
-            print(f"Error processing data: {e}")
-            raise
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.get(source_path) as response:
+                    response.raise_for_status()
+                    data = await response.json()
+                #df = pd.DataFrame(data)
+                logging.info(f"Data loaded successfully from {source_path}")
+                return data
+            except Exception as e:
+                logging.error(f"An error occurred while fetching API data: {e}")
+                raise
 
+# Example usage:
+# loader = DataLoader(config_file='config.json')
+# data = asyncio.run(loader.load_data('api', 'http://example.com/api/data'))
+# print(data)

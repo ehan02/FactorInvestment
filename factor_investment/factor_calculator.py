@@ -38,6 +38,12 @@ class EVToEBITDAFactorCalculator(BaseFactorCalculator):
         ev_to_ebitda = self.data['EnterpriseValue'] / self.data['EBITDA']
         return ev_to_ebitda
 
+class MomentumFactorCalculator(BaseFactorCalculator):
+    def compute_factor(self):
+        momentum = self.data['EnterpriseValue'] / self.data['EBITDA']
+        return momentum
+
+
 class FactorScorer:
     def score_factors(self, factors):
         # Example: Normalize and score factors
