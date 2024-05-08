@@ -2,9 +2,11 @@ import sys
 sys.path.append(f"C:/Users/hmhan/Documents/Code/FactorInvestment")
 import csv
 import asyncio
+import logging
 import pandas as pd
 from pathlib import Path
 from library.data_loader import DataLoader
+from log_config import setup_logging
 
 # Get the directory where the script is located (not necessarily where it's run from)
 base_path = Path(__file__).parent
@@ -16,33 +18,39 @@ base_url = "https://www.alphavantage.co/query?"
 
 class APIDataLoader:
     def __init__(self, loader):
-        self.loader = loader
+        self.loader = loader        
+        setup_logging()  # Set up logging configuration
 
     async def get_stock_data(self, ticker):
-        """Fetchesdata historical stock data for a given ticker using DataLoader."""
-        params = {
-            'function': 'TIME_SERIES_DAILY',
-            'symbol': ticker,
-            'outputsize': 'full',
-            'apikey': API_KEY
-        }
-        url = f"{base_url}&" + "&".join(f"{key}={value}" for key, value in params.items())
-        data = await self.loader.load_data(data_source_type='api', source_path=url)
-        df = pd.DataFrame(data['Time Series (Daily)']).T
-        df.rename(columns=lambda x: x[3:], inplace=True)
-        #df = df.astype(float)
-        return df
+        try:
+            params = {
+                'function': 'TIME_SERIES_DAILY',
+                'symbol': ticker,
+                'outputsize': 'full',
+                'apikey': API_KEY
+            }
+            url = f"{base_url}&" + "&".join(f"{key}={value}" for key, value in params.items())
+            data = await self.loader.load_data(data_source_type='api', source_path=url)
+            df = pd.DataFrame(data['Time Series (Daily)']).T
+            df.rename(columns=lambda x: x[3:], inplace=True)
+            return df
+        except Exception as e:
+            logging.error(f"Failed to fetch stock data for {ticker}: {e}")
+            return pd.DataFrame()
 
     async def get_financial_data(self, ticker):
-        """Fetches financial data for a given ticker using DataLoader."""
-        params = {
-            'function': 'INCOME_STATEMENT',
-            'symbol': ticker,
-            'apikey': API_KEY
-        }
-        url = f"{base_url}&" + "&".join(f"{key}={value}" for key, value in params.items())
-        data = await self.loader.load_data(data_source_type='api', source_path=url)
-        return data
+        try:
+            params = {
+                'function': 'INCOME_STATEMENT',
+                'symbol': ticker,
+                'apikey': API_KEY
+            }
+            url = f"{base_url}&" + "&".join(f"{key}={value}" for key, value in params.items())
+            data = await self.loader.load_data(data_source_type='api', source_path=url)
+            return data
+        except Exception as e:
+            logging.error(f"Failed to fetch financial data for {ticker}: {e}")
+            return {}
 
     async def run_tests(self):
         """Run tests to fetch data for all companies and write to the same file."""
