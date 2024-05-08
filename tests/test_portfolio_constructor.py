@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
 from pathlib import Path
-from factor_investment.portfolio_constructor import PortfolioConstructor
-from factor_investment.investment_strategy import ValueStrategy
+from library.portfolio_constructor import PortfolioConstructor
+from library.investment_strategy import ValueStrategy
 
 base_path = Path(__file__).parent
 test_config = base_path /  'test_config.json'

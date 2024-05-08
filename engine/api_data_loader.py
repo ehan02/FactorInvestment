@@ -1,7 +1,7 @@
 import asyncio
 import pandas as pd
 from pathlib import Path
-from factor_investment.data_loader import DataLoader
+from library.data_loader import DataLoader
 
 # Get the directory where the script is located (not necessarily where it's run from)
 base_path = Path(__file__).parent

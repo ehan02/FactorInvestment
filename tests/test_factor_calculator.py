@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from factor_investment.factor_calculator import PEFactorCalculator, PBFactorCalculator, EVToEBITDAFactorCalculator
+from library.factor_calculator import PEFactorCalculator, PBFactorCalculator, EVToEBITDAFactorCalculator
 
 # Example data for testing
 @pytest.fixture

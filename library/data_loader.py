@@ -6,7 +6,7 @@ import aiofiles
 import asyncio
 from pathlib import Path,WindowsPath, PosixPath
 from typing import Any, Dict
-from factor_investment.log_config import setup_logging
+from library.log_config import setup_logging
 
 class DataLoader:
     def __init__(self, config_file=None):

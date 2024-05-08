@@ -1,8 +1,8 @@
-from factor_investment.data_loader import DataLoader
-from factor_investment.data_cleaner import ConvertToFloatStrategy,FillMissingDataStrategy, WinsorizationStrategy, DataCleaner
-from factor_investment.factor_calculator import PEFactorCalculator, PBFactorCalculator, EVToEBITDAFactorCalculator
-from factor_investment.portfolio_constructor import PortfolioConstructor
-from factor_investment.portfolio_balancer import PortfolioBalancer
+from library.data_loader import DataLoader
+from library.data_cleaner import ConvertToFloatStrategy,FillMissingDataStrategy, WinsorizationStrategy, DataCleaner
+from library.factor_calculator import PEFactorCalculator, PBFactorCalculator, EVToEBITDAFactorCalculator
+from library.portfolio_constructor import PortfolioConstructor
+from library.portfolio_balancer import PortfolioBalancer
 import pandas as pd
 
 def run_analysis():

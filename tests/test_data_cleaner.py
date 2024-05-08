@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from factor_investment.data_cleaner import FillMissingDataStrategy, WinsorizationStrategy, DataCleaner
+from library.data_cleaner import FillMissingDataStrategy, WinsorizationStrategy, DataCleaner
 
 def test_fill_missing_data():
     # Create sample data with missing values

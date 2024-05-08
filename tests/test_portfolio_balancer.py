@@ -1,5 +1,5 @@
 import pytest
-from factor_investment.portfolio_balancer import PortfolioBalancer
+from library.portfolio_balancer import PortfolioBalancer
 
 def test_validate_inputs():
     balancer = PortfolioBalancer('daily')
