@@ -6,7 +6,7 @@ import aiofiles
 import asyncio
 from pathlib import Path,WindowsPath, PosixPath
 from typing import Any, Dict
-from library.log_config import setup_logging
+from log_config import setup_logging
 
 class DataLoader:
     def __init__(self, config_file=None):
@@ -73,7 +73,4 @@ class DataLoader:
                 logging.error(f"An error occurred while fetching API data: {e}")
                 raise
 
-# Example usage:
-# loader = DataLoader(config_file='config.json')
-# data = asyncio.run(loader.load_data('api', 'http://example.com/api/data'))
-# print(data)
+ 

@@ -77,11 +77,11 @@ class APIDataLoader:
         # # Concatenate all data into a single DataFrame
         #combined_stock_data = pd.concat(all_stock_data)
         # combined_financial_data = pd.concat(all_financial_data)
-        print(all_financial_data.shape())
+        #print(all_financial_data.shape())
 
         # Save the combined data to CSV files
-        all_stock_data.to_csv("stock_data.csv")
-        all_financial_data.to_csv("financial_data.csv")
+        #all_stock_data.to_csv("stock_data.csv")
+        #all_financial_data.to_csv("financial_data.csv")
                 
 
 # Setup DataLoader and APIDataLoader
