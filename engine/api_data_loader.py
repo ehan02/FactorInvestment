@@ -1,3 +1,6 @@
+import sys
+sys.path.append(f"C:/Users/hmhan/Documents/Code/FactorInvestment")
+import csv
 import asyncio
 import pandas as pd
 from pathlib import Path
@@ -60,15 +63,18 @@ class APIDataLoader:
 
             financial_data['Company'] = company
             all_financial_data.append(financial_data)
-
-        # Concatenate all data into a single DataFrame
-        combined_stock_data = pd.concat(all_stock_data)
-        combined_financial_data = pd.concat(all_financial_data)
+ 
+        all_stock_data = pd.DataFrame(all_stock_data[0])        
+        #all_financial_data = pd.DataFrame(all_financial_data)
+        # # Concatenate all data into a single DataFrame
+        #combined_stock_data = pd.concat(all_stock_data)
+        # combined_financial_data = pd.concat(all_financial_data)
+        print(all_financial_data.shape())
 
         # Save the combined data to CSV files
-        combined_stock_data.to_csv("stock_data.csv")
-        combined_financial_data.to_csv("financial_data.csv")
-
+        all_stock_data.to_csv("stock_data.csv")
+        all_financial_data.to_csv("financial_data.csv")
+                
 
 # Setup DataLoader and APIDataLoader
 data_loader = DataLoader(config_file='config.json')  
